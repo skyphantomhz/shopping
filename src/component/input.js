@@ -1,17 +1,14 @@
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback } from 'react-native'
+import { StyleSheet, View, TextInput, TouchableWithoutFeedback } from 'react-native'
 import React, { useRef } from 'react'
-// import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const InputComponent = ({children, onChangeText, icon, style, value, placeholder, keyboardType = "default", secureTextEntry = false }) => {
+const InputComponent = ({ children, onChangeText, style, value, placeholder, keyboardType = "default", secureTextEntry = false }) => {
     const textInput = useRef()
     const requestFocus = () => {
-        console.log("On Click View")
         textInput.current.focus();
     }
     return (
         <TouchableWithoutFeedback onPress={requestFocus}>
             <View style={[styles.container, style]} >
-                {/* <Icon name={icon} size={24} color="#38972E" iconStyle={{ marginRight: 20 }} /> */}
                 {children}
                 <TextInput
                     ref={textInput}
