@@ -30,6 +30,10 @@ const LoginScreen = ({ navigation }) => {
     const goRegisterScreen = () => {
         navigation.navigate("Register")
     }
+
+    const goOnboardingScreen = () => {
+        navigation.navigate("Onboarding")
+    }
     return (
         <SafeAreaView style={backgroundStyle}>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -47,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
                     </InputComponent>
                 </View>
                 <ButtonComponent title="Sign In"
-                    onPress={() => { console.log("Clicked") }} style={styles.buttonSignIn} />
+                    onPress={goOnboardingScreen} style={styles.buttonSignIn} />
                 <View style={{ flexDirection: 'row', position: 'absolute', bottom: 0, alignSelf: 'center' }}>
                     <Text style={styles.textSignUp}>Don’t have account? </Text>
                     <Pressable onPress={goRegisterScreen}>
