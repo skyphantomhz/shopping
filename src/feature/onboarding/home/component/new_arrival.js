@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import React from 'react'
 import ItemCard from './item_card'
 import { useSelector } from 'react-redux'
@@ -20,11 +20,12 @@ const NewArrival = ({ style }) => {
         </View>
     } else if (mRocketSelector.status === "success") {
         console.log(mRocketSelector.rockets)
-        contentNewArrival = <FlatList
-            style={{ marginTop: 8 }}
-            data={mRocketSelector.rockets}
-            renderItem={renderItem}
-            keyExtractor={item => item.id} nestedScrollEnabled />
+        contentNewArrival =
+            <View style={{ marginTop: 8, }}>
+                {mRocketSelector.rockets.map((item, index) => (
+                    <ItemCard content={item} />
+                ))}
+            </View>
     } else if (mRocketSelector.status === "fail") {
         contentNewArrival = <View style={{ width: 100, height: 100, backgroundColor: 'red' }} />
     }
