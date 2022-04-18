@@ -1,38 +1,41 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React from 'react'
 import ItemCard from './item_card'
-
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-    },
-];
+import { useSelector } from 'react-redux'
+import { rocketSelector } from '../rocket_slice'
+import LottieView from 'lottie-react-native'
 
 
 const NewArrival = ({ style }) => {
-    const renderItem = ({ item }) => (
-        <ItemCard title={item.title} />
-    );
+    const mRocketSelector = useSelector(rocketSelector)
+
+    const renderItem = ({ item }) => {
+        return <ItemCard content={item} />
+    }
+
+    var contentNewArrival = <View style={{ width: 100, height: 100, backgroundColor: 'red' }} />
+    if (mRocketSelector.status === "loading") {
+        contentNewArrival = <View style={{ width: 100, height: 100, alignSelf: 'center' }}>
+            <LottieView source={require('../../../../assets/loading.json')} autoPlay loop />
+        </View>
+    } else if (mRocketSelector.status === "success") {
+        console.log(mRocketSelector.rockets)
+        contentNewArrival = <FlatList
+            style={{ marginTop: 8 }}
+            data={mRocketSelector.rockets}
+            renderItem={renderItem}
+            keyExtractor={item => item.id} nestedScrollEnabled />
+    } else if (mRocketSelector.status === "fail") {
+        contentNewArrival = <View style={{ width: 100, height: 100, backgroundColor: 'red' }} />
+    }
+
     return (
         <View style={[styles.container, style]}>
             <View style={styles.headerContainer}>
                 <Text style={{ color: '#141010', fontWeight: '600', fontSize: 16 }}>New Arrival</Text>
                 <Text style={{ color: '#38972E', fontSize: 11 }}>See All</Text>
             </View>
-            <FlatList
-                style={{ marginTop: 8 }}
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => item.id} />
+            {contentNewArrival}
         </View>
     )
 }
@@ -41,7 +44,7 @@ export default NewArrival
 
 const styles = StyleSheet.create({
     container: {
-
+        marginBottom: 72
     },
     headerContainer: {
         flexDirection: 'row',

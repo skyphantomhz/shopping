@@ -2,20 +2,21 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import StarSVG from '../../../../assets/icons/ic_star_small'
 
-const ItemCard = () => {
+const ItemCard = ({ content }) => {
+    const firstImage = content.flickr_images[0]
     return (
         <View style={{ borderRadius: 15, backgroundColor: 'white', flexDirection: 'row', marginVertical: 8 }}>
             <View style={{ borderRadius: 15, backgroundColor: '#ECE9F1', rotation: 1, alignItems: 'center', padding: 14 }}>
                 <Image
                     style={{ width: 72, height: 72 }}
-                    source={{ uri: 'https://i.ibb.co/vHRDLQ7/mobile-2.png' }}
+                    source={{ uri: firstImage }}
                 />
             </View>
             <View style={{ paddingHorizontal: 10, paddingVertical: 14, flex: 1 }}>
-                <Text style={{ fontWeight: '600', fontSize: 16, color: '#1F272E' }}>Oneplus 9</Text>
+                <Text style={{ fontWeight: '600', fontSize: 16, color: '#1F272E' }}>{content.rocket_name}</Text>
                 <View style={{ flexDirection: 'row', marginTop: 7 }}>
                     <StarSVG />
-                    <Text style={{ flexDirection: 'row', marginStart: 5, fontSize: 11, color: '#828282' }}>4.5 (3k review)</Text>
+                    <Text style={{ flexDirection: 'row', marginStart: 5, fontSize: 11, color: '#828282' }}>{content.first_flight}</Text>
                 </View>
                 <Text style={{ fontWeight: '600', marginTop: 10, fontSize: 14, color: '#38972E' }}>344 AED</Text>
 
